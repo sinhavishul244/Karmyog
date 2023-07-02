@@ -144,7 +144,7 @@ const formCheck = (data) => {
 
     if (data.password != data.password2) {
         Toastify({
-            text: "passwords don't match",
+            text: "passwords must match",
             duration: 3000,
             newWindow: true,
             avatar: "",

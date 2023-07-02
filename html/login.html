@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +40,7 @@
                             <div class="formbuttons">
                                 <button type="submit" class="loginbtn button">Login</button>
                                 <span>or</span>
-                                <button class="loginbtn button button-outline">Register</button>
+                                <button class="loginbtn button button-outline" id="registerbutton">Register</button>
                             </div>
                             <div class="fillerdiv insidefillerdivs loginfillerdivs"></div>
                         </div>
@@ -56,14 +58,11 @@
         <div class="spaceformobile"></div>
     </div>
 
-
-
-
     <div class="preloader">
         <img src="../utils/logo_without_text.svg" alt="">
-
-
     </div>
+
+
 
 
     <!-- shaders for background  -->
@@ -162,6 +161,7 @@
                   gl_FragColor = vec4(color, 1.0);
               }
           </script>
+
 
 
     <!-- javascripts 

@@ -1,12 +1,21 @@
+// imports 
 import { OpenPreloader, ClosePreloader } from "./preloader.js";
+
+// variables 
 const rightcontainer = document.querySelector(".formbg");
+let initialChecked = false;
+let pageLoaded = false;
 
-
+//functions and their calls according to their work
+const CloseLoadingScreen = () => {
+    if (initialCheck && pageLoaded) {
+        ClosePreloader();
+    }
+}
 
 // code to check initially that if the user is already logged in or not
 const initialCheck = async () => {
-    OpenPreloader();
-    Loader.open("md")
+    // Loader.open("md")
     try {
         const res = await fetch("https://vishultodoapis.onrender.com/users/islogin", { credentials: "include" });
         const data = await res.json();
@@ -16,8 +25,9 @@ const initialCheck = async () => {
     } catch (error) {
         console.log(error);
     }
-    Loader.close();
-    ClosePreloader();
+    // Loader.close();
+    initialCheck = true;
+    CloseLoadingScreen();
 
     const params = new URL(location.href).searchParams;
     const mail = params.get('email');
@@ -42,7 +52,13 @@ const initialCheck = async () => {
     }
     document.getElementById("username").value = mail;
 }
+
 initialCheck();
+
+window.addEventListener("load", () => {
+    pageLoaded = true;
+    CloseLoadingScreen();
+})
 
 //function to login user
 //######################################################################
@@ -72,7 +88,7 @@ const loginUser = async (data) => {
             selector: rightcontainer,
             className: "toast-absolute",
             // node: rightcontainer,
-            close: true,
+            close: false,
             gravity: "top", // `top` or `bottom`
             position: "center", // `left`, `center` or `right`
             stopOnFocus: true, // Prevents dismissing of toast on hover
@@ -100,10 +116,68 @@ formEl.addEventListener("submit", (event) => {
     event.preventDefault();
     const formData = new FormData(formEl);
     const data = Object.fromEntries(formData);
+    if (!formcheck(data)) return;
     loginUser(data);
 
 })
 
+
+const formcheck = (data) => {
+
+    //checking if email is empty
+    if (data.email === "") {
+        Toastify({
+            text: "please enter your email",
+            duration: 3000,
+            newWindow: true,
+            avatar: "../utils/error2.png",
+            selector: rightcontainer,
+            className: "toast-absolute",
+            // node: rightcontainer,
+            close: false,
+            gravity: "top", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+                background: "#FF3333",
+            },
+        }).showToast();
+
+        document.querySelector("#username").focus();
+        return false;
+    }
+
+    if (data.password === "") {
+        Toastify({
+            text: "please enter your password",
+            duration: 3000,
+            newWindow: true,
+            avatar: "../utils/error2.png",
+            selector: rightcontainer,
+            className: "toast-absolute",
+            // node: rightcontainer,
+            close: false,
+            gravity: "top", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+                background: "#FF3333",
+            },
+        }).showToast();
+
+        document.querySelector("#password").focus();
+        return false;
+    }
+
+    return true;
+
+}
+
+
+document.querySelector("#registerbutton").addEventListener("click", (e) => {
+    e.preventDefault();
+    window.location.href = "../html/register.html"
+})
 
 
 
