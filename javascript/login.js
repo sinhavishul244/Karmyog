@@ -8,7 +8,7 @@ let pageLoaded = false;
 
 //functions and their calls according to their work
 const CloseLoadingScreen = () => {
-    if (initialCheck && pageLoaded) {
+    if (initialChecked && pageLoaded) {
         ClosePreloader();
     }
 }
@@ -26,7 +26,7 @@ const initialCheck = async () => {
         console.log(error);
     }
     // Loader.close();
-    initialCheck = true;
+    initialChecked = true;
     CloseLoadingScreen();
 
     const params = new URL(location.href).searchParams;
