@@ -44,6 +44,10 @@ canvas {
     position: fixed;
     top: 1rem;
     left: 1rem;
+
+}
+
+.backbutton svg {
     width: 3.375rem !important;
     height: 3.375rem !important;
 }
