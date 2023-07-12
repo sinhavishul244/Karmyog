@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Mandali&family=Palanquin&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /* outline: 2px solid rgba(0, 128, 0, 0.281); */
+    /* background-color: rgba(0, 128, 0, 0.281); */
+    outline-offset: -2px;
+    box-sizing: border-box;
+
+}
+
+/* code for canvas 
+###################################################### */
+body {
+    overflow-x: hidden;
+}
+
+#canvas,
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: -1;
+    /* overflow: hidden; */
+
+}
+
+.mainContainer {
+    overflow: auto;
+    height: 100vh;
+    width: 100vw;
+    /* border: 2px solid red; */
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    /* overflow: scroll; */
+}
+
+.backbutton {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    width: 3.375rem !important;
+    height: 3.375rem !important;
+}
+
+.wrapper {
+    width: 80%;
+    padding: 4rem 0;
+    overflow: auto;
+    /* border: 2px solid yellow; */
+}
+
+.wrapper img {
+    display: block;
+    margin: auto;
+}
+
+.mainlogo {
+    width: 25rem;
+}
+
+.topic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 6rem auto;
+    width: 60%;
+    overflow: visible;
+    /* margin: auto; */
+}
+
+.topic h1 {
+    color: #FFF;
+    text-align: center;
+    /* h3 */
+    font-family: Mandali;
+    font-size: 2.375rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.topic p {
+    color: var(--white-60, rgba(240, 243, 248, 0.60));
+    text-align: center;
+    /* paragraph */
+    font-family: Palanquin;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1.875rem;
+}
+
+.logowithouttext {
+    transform: rotate(-45deg);
+}
+
+.socials {
+    height: 4rem !important;
+}
+
+.topicSpan {
+    display: flex;
+    gap: 1rem;
+    margin: 0.5rem 0;
+    overflow: visible;
+}
+
+.topicSpan a {
+    color: var(--white-60, rgba(240, 243, 248, 0.60));
+    text-align: center;
+    /* paragraph */
+    font-family: Palanquin;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1rem;
+    overflow: visible;
+}
+
+p a {
+    color: var(--white-60, rgba(240, 243, 248, 0.60));
+    font-family: Palanquin;
+    /* font-size: 1.25rem; */
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1rem;
+}
+
+/* @media screen and (orientation:landscape) {
+
+    @media screen and (max-height:800px) {
+        :root {
+            font-size: 12px;
+        }
+    }
+
+    @media screen and (max-height:600px) {
+        :root {
+            font-size: 9px;
+        }
+    }
+
+    @media screen and (max-height:400px) {
+        :root {
+            font-size: 7px;
+        }
+    }
+} */
+
+
+/* media queries for phone  */
+@media screen and (orientation:portrait) {
+
+    .topic {
+        width: 100%;
+    }
+
+    .wrapper {
+        width: 90%;
+    }
+
+    .mainlogo {
+        width: 18rem;
+    }
+
+    /* code for changing root font size for smaller screens 
+    ########################################################### */
+
+    @media screen and (max-height:1000px) {
+        :root {
+            font-size: 12px;
+        }
+    }
+
+
+    @media screen and (max-height:800px) {
+        :root {
+            font-size: 10px;
+        }
+    }
+
+    @media screen and (max-height:600px) {
+        :root {
+            font-size: 8px;
+        }
+    }
+
+    @media screen and (max-height:400px) {
+        :root {
+            font-size: 7px;
+        }
+    }
+}

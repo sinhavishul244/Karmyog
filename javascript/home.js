@@ -137,8 +137,10 @@ window.addEventListener("load", () => {
 
     //automatic fetch every 30 sec
     setInterval(() => {
-        if (window.navigator.onLine)
+        if (window.navigator.onLine) {
             loadTask();
+            console.log("Check")
+        }
     }, 30000);
 })
 
@@ -656,5 +658,12 @@ addTaskRaiseBtnEl.addEventListener("click", () => {
 
     }
 })
+
+
+const aboutBtnEl = document.querySelector(".about");
+aboutBtnEl.onclick = () => {
+    window.location.href = "./html/about.html"
+}
+
 
 
