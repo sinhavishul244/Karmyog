@@ -1,6 +1,6 @@
 // imports 
 import { OpenPreloader, ClosePreloader } from "./preloader.js";
-import { mobilecheck } from "./animatedbg.js";
+import { mobilecheck } from "./homeScreenbg.js";
 
 
 //variables
@@ -8,6 +8,31 @@ let initialChecked = false;
 let pageLoaded = false;
 let taskcount = 0;
 const timeline = gsap.timeline();
+
+//initial internet check
+const internetCheck = () => {
+    if (window.navigator.onLine) {
+        return true;
+    } else {
+        Toastify({
+            text: "No internet!",
+            duration: 3000,
+            newWindow: true,
+            selector: mobilecheck() ? document.body : document.querySelector(".taskListContainer"),
+            className: "toast-absolute",
+            close: false,
+            avatar: "./utils/noInternet.svg",
+            gravity: "top", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+                background: "#FF3333",
+                boxShadow: "0 0px 0px 0px rgba(0,0,0,.0)"
+            },
+        }).showToast();
+        return false;
+    }
+}
 
 //initially setting light theme
 const documentEl = document.documentElement;
@@ -109,10 +134,17 @@ initialCheck();
 window.addEventListener("load", () => {
     pageLoaded = true;
     CloseLoadingScreen();
+
+    //automatic fetch every 30 sec
+    setInterval(() => {
+        if (window.navigator.onLine)
+            loadTask();
+    }, 30000);
 })
 
 //code to load the username
 const loadUserInfo = async () => {
+    if (!internetCheck()) return;
     const res = await fetch("https://vishultodoapis.onrender.com/users/findme", { credentials: "include" });
     const data = await res.json();
     // console.log(data);
@@ -162,14 +194,18 @@ const addTask = async (data) => {
             stopOnFocus: true, // Prevents dismissing of toast on hover
             style: {
                 background: "#051839",
+                boxShadow: "0 0px 0px 0px rgba(0,0,0,.0)"
             },
         }).showToast();
     }
 
+    if (!internetCheck()) return;
     Loader.open("md");
     try {
 
         if (data.description === "") data.description = "null";
+
+
         const res = await fetch("https://vishultodoapis.onrender.com/tasks/new", {
             method: "POST",
             headers: {
@@ -244,6 +280,7 @@ const logoutBtn = document.querySelector(".logoutbtn");
 // console.log(logoutBtn)
 logoutBtn.addEventListener("click", async () => {
     // console.log("click")
+    if (!internetCheck()) return;
     Loader.open("md");
 
     try {
@@ -251,7 +288,6 @@ logoutBtn.addEventListener("click", async () => {
         const data = await res.json();
         window.localStorage.removeItem("name");
         data.success ? window.location.href = "./html/login.html" : window.location.reload();
-
     } catch (e) {
 
     }
@@ -299,7 +335,7 @@ const loadTask = async () => {
 
     try {
         taskcount = 0;
-
+        if (!internetCheck()) return;
         const task = await fetch("https://vishultodoapis.onrender.com/tasks/all", { credentials: "include" });
         const data = await task.json();
 
@@ -411,11 +447,13 @@ const deleteOrUpdateTask = async (e) => {
     }
 
     try {
+        if (!internetCheck()) return;
         Loader.open("md");
 
         let res;
 
         if (isDeleteButton) {
+
             res = await fetch(`https://vishultodoapis.onrender.com/tasks/${e.target.id}`, {
                 method: "DELETE",
                 credentials: "include"
@@ -535,6 +573,32 @@ crossBtnEl.addEventListener("click", async () => {
     })
 })
 
+const settingBtnEl = document.querySelector(".setting");
+
+settingBtnEl.addEventListener("click", async () => {
+    await settingBtnTimeline.to('.darkening', {
+        // zIndex: 999,
+        height: "100%",
+        duration: 0
+    }).to(".navbar", {
+        y: "0%",
+        ease: "expo.out",
+        duration: 1
+    }).to(".navElements", {
+        y: "-1vh",
+        delay: -0.5,
+
+    }).to('.setting', {
+        rotate: 360 * 4,
+        duration: 1,
+        delay: -1
+    }).to('.darkening', {
+        opacity: "0.9",
+        delay: -1
+
+    })
+})
+
 //code for add task button
 const addTaskOpenerTimeline = gsap.timeline();
 const addTaskCloserTimeline = gsap.timeline();
@@ -591,33 +655,6 @@ addTaskRaiseBtnEl.addEventListener("click", () => {
             })
 
     }
-})
-
-
-const settingBtnEl = document.querySelector(".setting");
-
-settingBtnEl.addEventListener("click", async () => {
-    await settingBtnTimeline.to('.darkening', {
-        // zIndex: 999,
-        height: "100%",
-        duration: 0
-    }).to(".navbar", {
-        y: "0%",
-        ease: "expo.out",
-        duration: 1
-    }).to(".navElements", {
-        y: "-1vh",
-        delay: -0.5,
-
-    }).to('.setting', {
-        rotate: 360 * 4,
-        duration: 1,
-        delay: -1
-    }).to('.darkening', {
-        opacity: "0.9",
-        delay: -1
-
-    })
 })
 
 
