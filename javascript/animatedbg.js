@@ -10,7 +10,7 @@ function rgb(r, g, b) {
     return new THREE.Vector3(r, g, b);
 }
 
-function mobilecheck() {
+export function mobilecheck() {
     if (navigator.userAgent.match(/Android/i)
         || navigator.userAgent.match(/webOS/i)
         || navigator.userAgent.match(/iPhone/i)

@@ -1,5 +1,6 @@
 // imports 
 import { OpenPreloader, ClosePreloader } from "./preloader.js";
+import { mobilecheck } from "./animatedbg.js";
 
 // variables 
 const rightcontainer = document.querySelector(".formbg");
@@ -9,7 +10,60 @@ let pageLoaded = false;
 //functions and their calls according to their work
 const CloseLoadingScreen = () => {
     if (initialChecked && pageLoaded) {
+        //loading screen only closed when both the values are set to true
         ClosePreloader();
+        runAnimation();
+        //code for users just registering
+        const params = new URL(location.href).searchParams;
+        const mail = params.get('email');
+        const name = params.get('name');
+        const message = params.get('message');
+
+        if (message) {
+            setTimeout(() => {
+                Toastify({
+                    text: `${message}`,
+                    duration: 7000,
+                    delay: 10000,
+                    newWindow: true,
+                    // avatar: "../utils/error2.png",
+                    selector: mobilecheck() ? document.body : rightcontainer,
+                    className: "toast-absolute",
+                    close: false,
+                    gravity: "top", // `top` or `bottom`
+                    position: "center", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    },
+                }).showToast();
+            }, 800);
+        }
+
+        // console.log(mail);
+        if (mail && name) {
+            setTimeout(() => {
+                Toastify({
+                    text: `${name} please login again`,
+                    duration: 7000,
+                    delay: 10000,
+                    newWindow: true,
+                    // avatar: "../utils/error2.png",
+                    selector: mobilecheck() ? document.body : rightcontainer,
+                    className: "toast-absolute",
+                    close: false,
+                    gravity: "top", // `top` or `bottom`
+                    position: "center", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    },
+                }).showToast();
+            }, 800);
+
+            document.getElementById("username").value = mail;
+            document.getElementById("password").focus();
+        }
     }
 }
 
@@ -28,29 +82,6 @@ const initialCheck = async () => {
     // Loader.close();
     initialChecked = true;
     CloseLoadingScreen();
-
-    const params = new URL(location.href).searchParams;
-    const mail = params.get('email');
-    const name = params.get('name');
-
-    console.log(mail);
-    if (mail && name) {
-        Toastify({
-            text: `${name} please login again`,
-            duration: 10000,
-            newWindow: true,
-            avatar: "",
-            close: true,
-            gravity: "top", // `top` or `bottom`
-            position: "right", // `left`, `center` or `right`
-            stopOnFocus: true, // Prevents dismissing of toast on hover
-            style: {
-                background: "linear-gradient(to right, #00b09b, #96c93d)",
-            },
-        }).showToast();
-
-    }
-    document.getElementById("username").value = mail;
 }
 
 initialCheck();
@@ -62,7 +93,6 @@ window.addEventListener("load", () => {
 
 //function to login user
 //######################################################################
-// console.log(rightcontainer);
 
 const loginUser = async (data) => {
     const loginbtn = document.querySelector(".loginbtn");
@@ -79,13 +109,13 @@ const loginUser = async (data) => {
         });
 
         const received_data = await res.json();
-        // console.log(received_data);
+
         Toastify({
             text: received_data.message,
             duration: 3000,
             newWindow: true,
             avatar: "../utils/error2.png",
-            selector: rightcontainer,
+            selector: mobilecheck() ? document.body : rightcontainer,
             className: "toast-absolute",
             // node: rightcontainer,
             close: false,
@@ -131,7 +161,7 @@ const formcheck = (data) => {
             duration: 3000,
             newWindow: true,
             avatar: "../utils/error2.png",
-            selector: rightcontainer,
+            selector: mobilecheck() ? document.body : rightcontainer,
             className: "toast-absolute",
             // node: rightcontainer,
             close: false,
@@ -153,7 +183,7 @@ const formcheck = (data) => {
             duration: 3000,
             newWindow: true,
             avatar: "../utils/error2.png",
-            selector: rightcontainer,
+            selector: mobilecheck() ? document.body : rightcontainer,
             className: "toast-absolute",
             // node: rightcontainer,
             close: false,
@@ -173,13 +203,60 @@ const formcheck = (data) => {
 
 }
 
-
+//code for register button
 document.querySelector("#registerbutton").addEventListener("click", (e) => {
     e.preventDefault();
     window.location.href = "../html/register.html"
 })
 
+// code for animations
+const tl = new gsap.timeline();
 
+const runAnimation = () => {
 
+    gsap.from(".imagecarosel", {
+        scale: 1.3,
+        y: 20,
+        duration: 1.5
+    })
+    gsap.from(".logocontainer", {
+        y: -40,
+        opacity: 0,
+        duration: 1.5,
+        // delay: -1
+    })
+    gsap.from(".formbg", {
+        y: -40,
+        // delay: -2,
+        opacity: 0,
+        duration: 1.5
+    })
+    gsap.from(".imagecarosel-mobile", {
+        y: 20,
+        opacity: 0,
+        scale: 1.2,
+        duration: 1.5
+    })
+
+}
+
+//code for carosel
+var swiper = new Swiper(".swiper", {
+    slidesPerView: 1,
+    // allowSlideNext: false,
+    // allowSlidePrev: false,
+    allowTouchMove: false,
+    loop: true,
+    autoplay: {
+        delay: 5000,
+    },
+    effect: "flip",
+    flipEffect: {
+        // limitRotation: false
+        slideShadows: false
+
+    }
+
+});
 
 

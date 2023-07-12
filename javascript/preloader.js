@@ -19,3 +19,5 @@ export function ClosePreloader() {
     }, 800)
     // preloader.style.display = "none";
 }
+
+

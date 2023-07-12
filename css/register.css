@@ -211,7 +211,7 @@ canvas {
     display: flex;
     flex: 1 0 0;
     /* width: 28.375rem; */
-    height: 50% !important;
+    /* height: 50% !important; */
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
@@ -394,11 +394,10 @@ canvas {
     /* code for grid 
     ###################################### */
     .maincontainer {
-        grid-template-rows: 1fr 2.2fr 1fr 0.5fr;
+        grid-template-rows: 1fr 3fr 1fr;
         grid-template-areas:
             'left'
-            'right'
-            'vector';
+            'right';
         overflow-y: scroll;
     }
 

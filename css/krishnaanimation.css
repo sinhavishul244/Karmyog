@@ -1,0 +1,43 @@
+.krishna {
+    /* border: 2px solid red; */
+    overflow: visible;
+    position: absolute;
+    transform: translate(0, -200px);
+}
+
+.krishna svg {
+    overflow: visible;
+    height: 28rem !important;
+}
+
+#hand {
+    animation: handani 0.5s linear alternate 5000;
+    transform-origin: 40% 50%;
+
+}
+
+@keyframes handani {
+    0% {
+        transform: rotate(-2deg);
+    }
+
+    100% {
+        transform: rotate(3deg);
+    }
+}
+
+#hair,
+#head {
+    animation: headani 5s linear alternate 5000;
+    transform-origin: 50%;
+}
+
+@keyframes headani {
+    0% {
+        transform: rotate(-2.5deg);
+    }
+
+    100% {
+        transform: rotate(5deg);
+    }
+}
