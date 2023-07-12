@@ -96,7 +96,7 @@ const initialCheck = async () => {
         const res = await fetch("https://vishultodoapis.onrender.com/users/islogin", { credentials: "include" });
         const data = await res.json();
         if (!data.success) {
-            window.location.href = "../html/login.html"
+            window.location.href = "./html/login.html"
         }
         initialChecked = true;
     } catch (error) {
@@ -180,7 +180,7 @@ const addTask = async (data) => {
         })
         const received_data = await res.json();
 
-        if (!received_data.success) window.location.href = `../html/login.html?message=${received_data.message}`
+        if (!received_data.success) window.location.href = `./html/login.html?message=${received_data.message}`
 
         const inputs = document.querySelectorAll(".addtaskform input").forEach((e) => {
             e.value = "";
@@ -250,7 +250,7 @@ logoutBtn.addEventListener("click", async () => {
         const res = await fetch("https://vishultodoapis.onrender.com/users/logout", { credentials: "include" });
         const data = await res.json();
         window.localStorage.removeItem("name");
-        data.success ? window.location.href = "../html/login.html" : window.location.reload();
+        data.success ? window.location.href = "./html/login.html" : window.location.reload();
 
     } catch (e) {
 
@@ -304,7 +304,7 @@ const loadTask = async () => {
         const data = await task.json();
 
         //data received check
-        if (!data.success) window.location.href = "../html/login.html?message=please login again";
+        if (!data.success) window.location.href = "./html/login.html?message=please login again";
 
         const tasks = data.tasks;
         //setting svg or list according to the size of the array 
